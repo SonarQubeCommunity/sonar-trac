@@ -39,20 +39,24 @@ import org.junit.Test;
 import org.sonar.api.config.Settings;
 import org.sonar.api.measures.PropertiesBuilder;
 import org.sonar.api.resources.Project;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 public class TracSensorTest {
 
   private TracSensor tracSensor = null;
-
+  private ScmConfiguration scmConf;
+  private final String URL = "url";
   @Before
   public void setUp() {
+    
+    scmConf = mock(ScmConfiguration.class);
+    when(scmConf.getUrl()).thenReturn(URL);
     Settings settings = new Settings();
-    tracSensor = new TracSensor(settings);
-  }
-
-  @After
-  public void tearDown() {
-    tracSensor = null;
+    tracSensor = new TracSensor(scmConf,settings);
   }
 
   @Test
@@ -116,28 +120,6 @@ public class TracSensorTest {
     assertTrue("Executes on Java project.", tracSensor.shouldExecuteOnProject(new Project("java")));
     assertTrue("Executes on CPP project.", tracSensor.shouldExecuteOnProject(new Project("cpp")));
     assertTrue("Executes on foo project.", tracSensor.shouldExecuteOnProject(new Project("foo")));
-  }
-
-  @Test
-  public void testGetTracURLFromPOM() {
-    IssueManagement im = null;
-    assertNull("Null string returned with empty pom.xml", tracSensor.getTracURLFromPOM(im));
-
-    im = new IssueManagement();
-    im.setSystem(null);
-    im.setUrl("http://foo/bar");
-    assertNull("Null string returned for system=null", tracSensor.getTracURLFromPOM(im));
-
-    im.setSystem("Jira");
-    im.setUrl("http://foo/bar");
-    assertNull("Null string returned for system=Jira", tracSensor.getTracURLFromPOM(im));
-
-    im.setSystem("Trac");
-    im.setUrl(null);
-    assertNull("Handles null URL when system=Trac", tracSensor.getTracURLFromPOM(im));
-
-    im.setUrl("http://foo/bar");
-    assertEquals("Returns http://foo/bar system=Trac", tracSensor.getTracURLFromPOM(im), "http://foo/bar");
   }
 
 }

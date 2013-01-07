@@ -25,8 +25,6 @@ package org.sonar.plugins.trac;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import org.apache.maven.model.IssueManagement;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -43,9 +41,11 @@ public class TracSensor implements Sensor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TracSensor.class);
   private final Settings settings;
+  private final ScmConfiguration configuration;
   
-  public TracSensor (final Settings settings){
+  public TracSensor (ScmConfiguration configuration,final Settings settings){
     this.settings = settings;
+    this.configuration = configuration;
   }
   
   public final boolean shouldExecuteOnProject(Project project) {
@@ -113,35 +113,9 @@ public class TracSensor implements Sensor {
     return retVal;
   }
 
-  /**
-   * If a Trac URL is specified in the project's pom.xml file it is returned,
-   * null otherwise.
-   *
-   * @param im IssueManagement object from project's pom.xml
-   * @return Trac URL
-   */
-  public final String getTracURLFromPOM(IssueManagement im) {
-    String retVal = null;
-    // I don't know of a better way to check the tracker system
-    // then doing a string compare.
-    if ((null != im) && (null != im.getSystem()) && im.getSystem().equalsIgnoreCase("trac")) {
-      retVal = im.getUrl();
-    }
-
-    return retVal;
-  }
-
   public final void analyse(Project project, SensorContext sensorContext) {
 
-    // Trac URL specified in project configuration overrides the URL
-    // specified in the project's pom.xml file.
-    String tracURL = settings.getString(TracPlugin.TRAC_URL_KEY);
-
-    if (null == tracURL) {
-      LOGGER.info("Trac: No URL specified in Sonar configuration - trying project's pom.xml file instead.");
-      tracURL = getTracURLFromPOM(project.getPom().getIssueManagement());
-    }
-
+    final String tracURL = configuration.getUrl();
     // Check to see if we failed to get a Trac instance URL from both the
     // configuration specified in Sonar and the POM.
     if (null == tracURL) {

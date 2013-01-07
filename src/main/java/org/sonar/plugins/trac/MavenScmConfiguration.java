@@ -21,19 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package org.sonar.plugins.trac;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import org.junit.Test;
+import org.apache.maven.model.IssueManagement;
+import org.apache.maven.project.MavenProject;
+import org.sonar.api.BatchExtension;
+import org.sonar.api.batch.SupportedEnvironment;
 
-public class TracMetricsTest {
-
-  @Test
-  public void testMetricsDefinition() {
-    TracMetrics metrics = new TracMetrics();
-    assertThat(metrics.getMetrics().size(), is(2));
+@SupportedEnvironment("maven")
+public class MavenScmConfiguration implements BatchExtension {
+  private final MavenProject mavenProject;
+  private final IssueManagement issueManagement;
+  
+  public MavenScmConfiguration(MavenProject mvnProject) {
+    mavenProject = mvnProject;
+    issueManagement = mavenProject.getIssueManagement();
   }
 
+  public String getIssueManagementUrl() {
+    return (issueManagement == null ? null : issueManagement.getUrl());
+  }
 }

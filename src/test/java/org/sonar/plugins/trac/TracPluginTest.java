@@ -40,7 +40,7 @@ public class TracPluginTest {
 
   @Test
   public void testPluginDefinition() {
-    assertThat(plugin.getExtensions().size(), is(3));
+    assertThat(plugin.getExtensions().size(), is(5));
   }
 
 }

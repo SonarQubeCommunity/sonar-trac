@@ -76,7 +76,7 @@ public class TracPlugin extends SonarPlugin {
   public List getExtensions() {
     return ImmutableList.of(
             // Definitions
-            TracMetrics.class,
+            TracMetrics.class, MavenScmConfiguration.class, ScmConfiguration.class,
             // Batch
             TracSensor.class,
             // UI
