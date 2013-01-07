@@ -41,10 +41,11 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/trac</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/trac</developerConnection>
-    <url>http://svn.sonar-plugins.codehaus.org</url>
+    <connection>scm:git:git@github.com:SonarCommunity/sonar-trac.git</connection>
+    <developerConnection>scm:git:git@github.com:SonarCommunity/sonar-trac.git</developerConnection>
+    <url>https://github.com/SonarCommunity/sonar-trac</url>
   </scm>
+ 
   <issueManagement>
     <system>JIRA</system>
     <url>http://jira.codehaus.org/browse/SONARPLUGINS/component/14516</url>
