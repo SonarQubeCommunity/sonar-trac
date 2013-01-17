@@ -5,7 +5,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>org.codehaus.sonar-plugins</groupId>
-    <version>15</version>
+    <version>16</version>
     <relativePath>../parent</relativePath>
   </parent>
 
@@ -37,6 +37,7 @@
       <id>ppapapetrou</id>
       <name>Patroklos PAPAPETROU</name>
       <email>ppapapetrou76@gmail.com</email>
+      <url>http://gr.linkedin.com/in/ppapapetrou</url>
     </developer>
   </developers>
 
@@ -51,8 +52,8 @@
     <url>http://jira.codehaus.org/browse/SONARPLUGINS/component/14516</url>
   </issueManagement>
   <ciManagement>
-    <system>Bamboo</system>
-    <url>http://bamboo.ci.codehaus.org/browse/SONAR-TRAC</url>
+    <system>Jeninks</system>
+    <url>https://sonarplugins.ci.cloudbees.com/job/trac</url>
   </ciManagement>
 
   <properties>
