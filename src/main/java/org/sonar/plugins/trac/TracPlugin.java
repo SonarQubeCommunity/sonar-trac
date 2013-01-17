@@ -82,9 +82,4 @@ public class TracPlugin extends SonarPlugin {
             // UI
             TracDashboardWidget.class);
   }
-
-  @Override
-  public final String toString() {
-    return getKey();
-  }
 }
