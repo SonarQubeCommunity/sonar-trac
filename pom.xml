@@ -11,7 +11,7 @@
 
   <artifactId>sonar-trac-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
-  <version>0.3</version>
+  <version>0.4-SNAPSHOT</version>
   
   <name>Sonar Trac Plugin</name>
   <description>Retrieves and reports the number of project issues from a Trac instance.</description>
@@ -45,7 +45,7 @@
     <connection>scm:git:git@github.com:SonarCommunity/sonar-trac.git</connection>
     <developerConnection>scm:git:git@github.com:SonarCommunity/sonar-trac.git</developerConnection>
     <url>https://github.com/SonarCommunity/sonar-trac</url>
-    <tag>sonar-trac-plugin-0.3</tag>
+    <tag>HEAD</tag>
   </scm>
  
   <issueManagement>
